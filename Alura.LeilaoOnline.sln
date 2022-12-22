@@ -15,7 +15,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Alura.LeilaoOnline.WebApp",
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Alura.LeilaoOnline.Dados", "Alura.LeilaoOnline.Dados\Alura.LeilaoOnline.Dados.csproj", "{7C733F15-4F1C-497A-B81E-DD4272EECF64}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Alura.LeilaoOnline.Selenium", "..\Alura.Selenium.Tests\Alura.LeilaoOnline.Selenium\Alura.LeilaoOnline.Selenium.csproj", "{F0563F1C-260D-4575-A6CE-5056AFC71E95}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Alura.LeilaoOnline.Selenium", "Alura.LeilaoOnline.Selenium\Alura.LeilaoOnline.Selenium.csproj", "{61CBD3F3-0AF9-43B5-BC6D-EC2AF6D92783}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,10 +39,10 @@ Global
 		{7C733F15-4F1C-497A-B81E-DD4272EECF64}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7C733F15-4F1C-497A-B81E-DD4272EECF64}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7C733F15-4F1C-497A-B81E-DD4272EECF64}.Release|Any CPU.Build.0 = Release|Any CPU
-		{F0563F1C-260D-4575-A6CE-5056AFC71E95}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{F0563F1C-260D-4575-A6CE-5056AFC71E95}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{F0563F1C-260D-4575-A6CE-5056AFC71E95}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{F0563F1C-260D-4575-A6CE-5056AFC71E95}.Release|Any CPU.Build.0 = Release|Any CPU
+		{61CBD3F3-0AF9-43B5-BC6D-EC2AF6D92783}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{61CBD3F3-0AF9-43B5-BC6D-EC2AF6D92783}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{61CBD3F3-0AF9-43B5-BC6D-EC2AF6D92783}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{61CBD3F3-0AF9-43B5-BC6D-EC2AF6D92783}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -52,7 +52,7 @@ Global
 		{5B67685E-B4CC-442B-A739-1628C4AF8137} = {060B2CDE-6D52-42CE-A815-70B702D7E703}
 		{3AFFE351-B8DB-4859-86D2-4CD0F4944763} = {C80543F3-648E-4D63-8340-D1B47D3131C8}
 		{7C733F15-4F1C-497A-B81E-DD4272EECF64} = {C80543F3-648E-4D63-8340-D1B47D3131C8}
-		{F0563F1C-260D-4575-A6CE-5056AFC71E95} = {060B2CDE-6D52-42CE-A815-70B702D7E703}
+		{61CBD3F3-0AF9-43B5-BC6D-EC2AF6D92783} = {060B2CDE-6D52-42CE-A815-70B702D7E703}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {F047DFFC-5A65-4C77-AB55-BBAE424F4A7D}

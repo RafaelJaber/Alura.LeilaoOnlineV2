@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Xunit;
+﻿using Xunit;
 
-namespace Alura.LeilaoOnline.Selenium.Fixtures
+namespace Alura.LeilaoOnline.Selenium.V2.Fixtures
 {
-    [CollectionDefinition("Chrome Driver")]
+    [CollectionDefinition("Edge Driver")]
     public class CollectionFixture : ICollectionFixture<TestFixture>
     {
     }

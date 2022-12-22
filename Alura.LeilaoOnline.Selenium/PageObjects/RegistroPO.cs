@@ -1,57 +1,45 @@
-﻿using System;
-using OpenQA.Selenium;
+﻿using OpenQA.Selenium;
 
-namespace Alura.LeilaoOnline.Selenium.PageObjects
+namespace Alura.LeilaoOnline.Selenium.V2.PageObjects
 {
     public class RegistroPO
     {
-        private IWebDriver driver;
-        private By byFormRegistro;
-        private By byInputNome;
-        private By byInputEmail;
-        private By byInputSenha;
-        private By byInputConfirmSenha;
-        private By byBotaoRegistro;
-        private By bySpanErroEmail;
-        private By bySpanErroNome;
-
-        public string EmailMensagemErro => driver.FindElement(bySpanErroEmail).Text;
-
-        public string NomeMensagemErro => driver.FindElement(bySpanErroNome).Text;
+        private IWebDriver _driver;
+        private By _formRegistro;
+        private By _inputNome;
+        private By _inputEmail;
+        private By _inputSenha;
+        private By _inputSenhaC;
+        private By _botaoRegistro;
 
         public RegistroPO(IWebDriver driver)
         {
-            this.driver = driver;
-            byFormRegistro = By.TagName("form");
-            byInputNome = By.Id("Nome");
-            byInputEmail = By.Id("Email");
-            byInputSenha = By.Id("Password");
-            byInputConfirmSenha = By.Id("ConfirmPassword");
-            byBotaoRegistro = By.Id("btnRegistro");
-            bySpanErroEmail = By.CssSelector("span.msg-erro[data-valmsg-for=Email]");
-            bySpanErroNome = By.CssSelector("span.msg-erro[data-valmsg-for=Nome]");
+            _driver = driver;
+            _formRegistro = By.TagName("form");
+            _inputNome = By.Id("Nome");
+            _inputEmail = By.Id("Email");
+            _inputSenha = By.Id("Password");
+            _inputSenhaC = By.Id("ConfirmPassword");
+            _botaoRegistro = By.Id("btnRegistro");
         }
 
-        public void Visitar()
+        public void Visitar(string path)
         {
-            driver.Navigate().GoToUrl("http://localhost:5000");
+            string url = $"http://localhost:5000/{path}";
+            _driver.Navigate().GoToUrl(url);
         }
 
         public void SubmeteFormulario()
         {
-            driver.FindElement(byBotaoRegistro).Click();
+            _driver.FindElement(_botaoRegistro).Click();
         }
 
-        public void PreencheFormulario(
-            string nome, 
-            string email, 
-            string senha, 
-            string confirmSenha)
+        public void PreencherFormulario(string nome, string email, string senha, string senhaC)
         {
-            driver.FindElement(byInputNome).SendKeys(nome);
-            driver.FindElement(byInputEmail).SendKeys(email);
-            driver.FindElement(byInputSenha).SendKeys(senha);
-            driver.FindElement(byInputConfirmSenha).SendKeys(confirmSenha);
+            _driver.FindElement(_inputNome).SendKeys(nome);
+            _driver.FindElement(_inputEmail).SendKeys(email);
+            _driver.FindElement(_inputSenha).SendKeys(senha);
+            _driver.FindElement(_inputSenhaC).SendKeys(senhaC);
         }
     }
 }

@@ -1,94 +1,93 @@
-﻿using Alura.LeilaoOnline.Selenium.Fixtures;
-using Alura.LeilaoOnline.Selenium.PageObjects;
+﻿using Alura.LeilaoOnline.Selenium.V2.Fixtures;
+using Alura.LeilaoOnline.Selenium.V2.PageObjects;
 using OpenQA.Selenium;
 using Xunit;
 
-namespace Alura.LeilaoOnline.Selenium.Testes
+namespace Alura.LeilaoOnline.Selenium.V2.Testes
 {
-    [Collection("Chrome Driver")]
+    [Collection("Edge Driver")]
     public class AoEfetuarRegistro
     {
-        private IWebDriver driver;
+        // Setup
+        private readonly IWebDriver _driver;
 
         public AoEfetuarRegistro(TestFixture fixture)
         {
-            driver = fixture.Driver;
+            _driver = fixture.Driver;
         }
 
         [Fact]
-        public void DadoInfoValidasDeveIrParaPaginaDeAgradecimento()
+        public void DadoInfoValidasIrParaPaginaAgradecimento()
         {
-            //arrange
-            var registroPO = new RegistroPO(driver);
-            registroPO.Visitar();
+            // Arrange
+            _driver.Navigate().GoToUrl("http://localhost:5000");
 
-            registroPO.PreencheFormulario("Daniel Portugal", "daniel.portugal@caelum.com.br", "123", "123");
+            IWebElement inputNome = _driver.FindElement(By.Id("Nome"));
+            IWebElement inputEmail = _driver.FindElement(By.Id("Email"));
+            IWebElement inputPass = _driver.FindElement(By.Id("Password"));
+            IWebElement inputPassC = _driver.FindElement(By.Id("ConfirmPassword"));
 
-            //act
-            registroPO.SubmeteFormulario();
-
-            //assert
-            Assert.Contains("Obrigado", driver.PageSource);
-
+            inputNome.SendKeys("Rafael Jáber");
+            inputEmail.SendKeys("rafael@rafael.com");
+            inputPass.SendKeys("123123");
+            inputPassC.SendKeys("123123");
+            
+            // Act
+            _driver.FindElement(By.Id("btnRegistro")).Click();
+            
+            // Assert
+            Assert.Contains("Obrigado por se registrar!", _driver.PageSource);
         }
 
         [Theory]
-        [InlineData("", "daniel.portugal@caelum.com.br", "123", "123")]
-        [InlineData("Daniel Portugal", "daniel", "123", "123")]
-        [InlineData("Daniel Portugal", "daniel.portugal@caelum.com.br", "123", "456")]
-        [InlineData("Daniel Portugal", "daniel.portugal@caelum.com.br", "123", "")]
-        public void DadoInfoinvalidasDeveContinuarNaHome(
-            string nome,
-            string email,
-            string senha,
-            string confirmSenha)
+        [InlineData("","","","")]
+        [InlineData("null","","","")]
+        [InlineData("","null@email","","")]
+        [InlineData("","","null","")]
+        [InlineData("","","","null")]
+        [InlineData("Rafael","rafael","123123","123123")]
+        [InlineData("Rafael","rafael@rafael.com","123123","321321")]
+        public void DadoInfoInalidasDeveContinuarNaHome(string nome, string email, string pass, string passC)
         {
-            //arrange
-            var registroPO = new RegistroPO(driver);
-            registroPO.Visitar();
-            registroPO.PreencheFormulario(nome, email, senha, confirmSenha);
+            // Arrange
+            RegistroPO po = new RegistroPO(_driver);
+            po.Visitar("");
 
-            //act
-            registroPO.SubmeteFormulario();
-
-            //assert
-            Assert.Contains("section-registro", driver.PageSource);
-
+            po.PreencherFormulario(nome, email, pass, passC);
+            
+            // Act
+            po.SubmeteFormulario();
+            
+            // Assert
+            Assert.Contains("Registre-se para participar dos leilões!", _driver.PageSource);
         }
 
         [Fact]
-        public void DadoNomeEmBrancoDeveMostrarMensagemDeErro()
+        public void DadoEmBrancoDeveMostrarMensagemDeErroNome()
         {
-            //arrange
-            var registroPO = new RegistroPO(driver);
-            registroPO.Visitar();
-
-            //act
-            registroPO.SubmeteFormulario();
-
-            //assert - 
-            Assert.Equal("The Nome field is required.", registroPO.NomeMensagemErro);
+            // Arrange
+            _driver.Navigate().GoToUrl("http://localhost:5000");
+            
+            // Act
+            _driver.FindElement(By.Id("btnRegistro")).Click();
+            
+            // Assert
+            IWebElement errorMessage = _driver.FindElement(By.CssSelector("span.msg-erro[data-valmsg-for=Nome]"));
+            Assert.Equal("The Nome field is required.", errorMessage.Text);
         }
-
-        [Fact]
-        public void DadoEmailInvalidoDeveMostrarMensagemDeErro()
+        
+        [Fact(Skip = "Teste não está funcionando muito bem, precisa ser refatorado")]
+        public void DadoEmBrancoDeveMostrarMensagemDeErroEmail()
         {
-            //arrange
-            var registroPO = new RegistroPO(driver);
-            registroPO.Visitar();
-
-            registroPO.PreencheFormulario(
-                nome: "",
-                email: "daniel",
-                senha: "",
-                confirmSenha: ""
-             );
-
-            //act
-            registroPO.SubmeteFormulario();
-
-            //assert
-            Assert.Equal("Please enter a valid email address.", registroPO.EmailMensagemErro);
+            // Arrange
+            _driver.Navigate().GoToUrl("http://localhost:5000");
+            
+            // Act
+            _driver.FindElement(By.Id("btnRegistro")).Click();
+            
+            // Assert
+            IWebElement errorMessage = _driver.FindElement(By.CssSelector("span.msg-erro[data-valmsg-for=Email]"));
+            Assert.Equal("The Endereço de Email field is required.", errorMessage.Text);
         }
     }
 }

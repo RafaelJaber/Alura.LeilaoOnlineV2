@@ -1,28 +1,25 @@
-﻿using Alura.LeilaoOnline.Selenium.Fixtures;
-using Alura.LeilaoOnline.Selenium.PageObjects;
+﻿using Alura.LeilaoOnline.Selenium.V2.Fixtures;
+using Alura.LeilaoOnline.Selenium.V2.PageObjects;
 using OpenQA.Selenium;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using Xunit;
 
-namespace Alura.LeilaoOnline.Selenium.Testes
+namespace Alura.LeilaoOnline.Selenium.V2.Testes
 {
-    [Collection("Chrome Driver")]
+    [Collection("Edge Driver")]
     public class AoEfetuarLogin
     {
-        private IWebDriver driver;
+        private IWebDriver _driver;
 
         public AoEfetuarLogin(TestFixture fixture)
         {
-            driver = fixture.Driver;    
+            _driver = fixture.Driver;
         }
-
+        
         [Fact]
         public void DadoCredenciaisValidasDeveIrParaDashboard()
         {
             //arrange
-            var loginPO = new LoginPO(driver);
+            var loginPO = new LoginPO(_driver);
             loginPO.Visitar();
             loginPO.PreencheFormulario("fulano@example.org", "123");
 
@@ -30,14 +27,14 @@ namespace Alura.LeilaoOnline.Selenium.Testes
             loginPO.SubmeteFormulario();
 
             //assert
-            Assert.Contains("Dashboard", driver.Title);
+            Assert.Contains("Dashboard", _driver.Title);
         }
 
         [Fact]
         public void DadoCrendenciasInvalidasDeveContinuarLogin()
         {
             //arrange
-            var loginPO = new LoginPO(driver);
+            var loginPO = new LoginPO(_driver);
             loginPO.Visitar();
             loginPO.PreencheFormulario("fulano@example.org", "");
 
@@ -45,7 +42,7 @@ namespace Alura.LeilaoOnline.Selenium.Testes
             loginPO.SubmeteFormulario();
 
             //assert
-            Assert.Contains("Login", driver.PageSource);
+            Assert.Contains("Login", _driver.PageSource);
         }
     }
 }

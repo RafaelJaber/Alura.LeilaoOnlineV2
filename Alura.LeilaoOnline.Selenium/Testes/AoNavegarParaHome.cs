@@ -1,62 +1,66 @@
-using Alura.LeilaoOnline.Selenium.Fixtures;
-using Alura.LeilaoOnline.Selenium.Helpers;
+using Alura.LeilaoOnline.Selenium.V2.Helpers;
+using Alura.LeilaoOnline.Selenium.V2.Fixtures;
 using OpenQA.Selenium;
-using OpenQA.Selenium.Chrome;
+using OpenQA.Selenium.Edge;
 using System;
+using System.Collections.ObjectModel;
+using System.IO;
+using System.Reflection;
 using Xunit;
 
-namespace Alura.LeilaoOnline.Selenium.Testes
+namespace Alura.LeilaoOnline.Selenium.V2.Testes
 {
-    [Collection("Chrome Driver")]
+    [Collection("Edge Driver")]
     public class AoNavegarParaHome
     {
-        private IWebDriver driver;
-
-        //Setup
+        // Setup
+        private readonly IWebDriver _driver;
+        
         public AoNavegarParaHome(TestFixture fixture)
         {
-            driver = fixture.Driver;
+            _driver = fixture.Driver;
         }
 
         [Fact]
-        public void DadoChromeAbertoDeveMostrarLeiloesNoTitulo()
+        public void DadoEdgeAbertoDeveMostrarLeiloesNoTitulo()
         {
-            //arrange
+            // Arrange
+            // Act
+            _driver.Navigate().GoToUrl("http://localhost:5000");
 
-            //act
-            driver.Navigate().GoToUrl("http://localhost:5000");
-
-            //assert
-            Assert.Contains("Leilıes", driver.Title);
+            // Assert
+            Assert.Contains("Leil√µes", _driver.Title);
         }
-
+        
         [Fact]
-        public void DadoChromeAbertoDeveMostrarProximosLeiloesNaPagina()
+        public void DadoEdgeAbertoDeveMostrarProximosLeiloesNaPagina()
         {
-            //arrange
+            // Arrange
+            // Act
+            _driver.Navigate().GoToUrl("http://localhost:5000");
 
-            //act
-            driver.Navigate().GoToUrl("http://localhost:5000");
-
-            //assert
-            Assert.Contains("PrÛximos Leilıes", driver.PageSource);
+            // Assert
+            Assert.Contains("Pr√≥ximos Leil√µes", _driver.PageSource);
         }
-
+        
         [Fact]
-        public void DadoChromeAbertoFormRegistroNaoDeveMostrarMensagensDeErro()
+        public void DadoEdgeAbertoFormRegistroNaoDeveMostrarMensagensDeErro()
         {
-            //arrange
+            // Arrange
+            _driver.Navigate().GoToUrl("http://localhost:5000");
 
-            //act
-            driver.Navigate().GoToUrl("http://localhost:5000");
+            // Act
+            IWebElement form = _driver.FindElement(By.TagName("form"));
+            ReadOnlyCollection<IWebElement> spans = form.FindElements(By.TagName("span"));
 
-            //assert
-            var form = driver.FindElement(By.TagName("form"));
-            var spans = form.FindElements(By.TagName("span"));
-            foreach (var span in spans)
+            // Assert
+
+            foreach (IWebElement span in spans)
             {
                 Assert.True(string.IsNullOrEmpty(span.Text));
             }
         }
+
+
     }
 }
