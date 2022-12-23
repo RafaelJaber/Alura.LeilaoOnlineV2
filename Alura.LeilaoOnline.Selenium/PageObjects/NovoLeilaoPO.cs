@@ -1,6 +1,9 @@
 using OpenQA.Selenium;
+using OpenQA.Selenium.Support.UI;
 using System;
+using System.Collections.Generic;
 using System.Globalization;
+using System.Linq;
 using System.Threading;
 
 namespace Alura.LeilaoOnline.Selenium.V2.PageObjects
@@ -32,6 +35,21 @@ namespace Alura.LeilaoOnline.Selenium.V2.PageObjects
             _inputTerminoPregao = By.Id("TerminoPregao");
             _buttonSalvar = By.CssSelector("Button[type=submit]");
 
+        }
+
+        public IEnumerable<string> Categorias
+        {
+            get
+            {
+                IWebElement elementoCategoria =  _driver.FindElement(By.ClassName("select-wrapper"));
+                return elementoCategoria.FindElements(By.TagName("li"))
+                    .Select(o => o.Text);
+                // Não foi possivel usar o select ui mas como exemplo fica ai 
+                // SelectElement elementoCategoria = new SelectElement(_driver.FindElement(_inputCategoria));
+                // return elementoCategoria.Options
+                //     .Where(o => o.Enabled)
+                //     .Select(o => o.Text);
+            }
         }
 
         public void Visitar()
