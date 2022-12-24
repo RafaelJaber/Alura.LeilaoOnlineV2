@@ -26,7 +26,7 @@ namespace Alura.LeilaoOnline.Selenium.V2.Testes
             
             // Act
             DashboardInteressadaPO dashPo = new DashboardInteressadaPO(_driver);
-            dashPo.EfetuarLogout();
+            dashPo.Menu.EfetuarLogout();
             
             // Assert
             Assert.Contains("Próximos Leilões", _driver.PageSource);

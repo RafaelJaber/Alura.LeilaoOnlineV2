@@ -28,7 +28,7 @@ namespace Alura.LeilaoOnline.Selenium.V2.Testes
             DashboardInteressadaPO dashboardInteressadaPo = new DashboardInteressadaPO(_driver);
             
             // Act
-            dashboardInteressadaPo.PesquisarLeiloes(
+            dashboardInteressadaPo.Filtro.PesquisarLeiloes(
                 new List<string> {"Arte", "Coleções"}, 
                 "", 
                 true);
