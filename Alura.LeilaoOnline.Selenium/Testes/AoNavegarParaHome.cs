@@ -1,5 +1,6 @@
 using Alura.LeilaoOnline.Selenium.V2.Helpers;
 using Alura.LeilaoOnline.Selenium.V2.Fixtures;
+using Alura.LeilaoOnline.Selenium.V2.PageObjects;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Edge;
 using System;
@@ -47,6 +48,8 @@ namespace Alura.LeilaoOnline.Selenium.V2.Testes
         public void DadoEdgeAbertoFormRegistroNaoDeveMostrarMensagensDeErro()
         {
             // Arrange
+            DashboardInteressadaPO dashPo = new DashboardInteressadaPO(_driver);
+            dashPo.Menu.EfetuarLogout();
             _driver.Navigate().GoToUrl("http://localhost:5000");
 
             // Act
