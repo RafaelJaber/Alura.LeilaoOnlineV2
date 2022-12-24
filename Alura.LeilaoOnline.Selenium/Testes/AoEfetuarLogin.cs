@@ -19,12 +19,11 @@ namespace Alura.LeilaoOnline.Selenium.V2.Testes
         public void DadoCredenciaisValidasDeveIrParaDashboard()
         {
             //arrange
-            var loginPO = new LoginPO(_driver);
-            loginPO.Visitar();
-            loginPO.PreencheFormulario("fulano@example.org", "123");
-
-            //act
-            loginPO.SubmeteFormulario();
+            new LoginPO(_driver)
+                .Visitar()
+                .InformarEmail("fulano@example.org")
+                .InformarSenha("123")
+                .SubmeteFormulario();
 
             //assert
             Assert.Contains("Dashboard", _driver.Title);
