@@ -1,7 +1,9 @@
-﻿using OpenQA.Selenium;
+﻿using Alura.LeilaoOnline.Selenium.V2.Helpers;
+using OpenQA.Selenium;
 using OpenQA.Selenium.Interactions;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 
 namespace Alura.LeilaoOnline.Selenium.V2.PageObjects
 {
@@ -23,36 +25,26 @@ namespace Alura.LeilaoOnline.Selenium.V2.PageObjects
             _logoutLink = By.Id("logout");
             _meuPerfilLink = By.Id("meu-perfil");
             _selectCategorias = By.ClassName("select-wrapper");
+            _inputTermo = By.Id("termo");
+            _inputAndamento = By.ClassName("lever");
+            _botaoPesquisar = By.CssSelector("form>button.btn");
         }
 
-        public void PesquisarLeiloes(List<string> categorias)
+        public void PesquisarLeiloes(
+            List<string> categorias,
+            string termo,
+            bool emAndamento
+            )
         {
-            IWebElement selectWrapper = _driver.FindElement(_selectCategorias);
-            selectWrapper.Click();
-
-            List<IWebElement> opcoes = selectWrapper
-                .FindElements(By.CssSelector("li>span"))
-                .ToList();
-            
-            foreach (IWebElement webElement in opcoes)
+            var select = new SelectMaterialize(_driver, _selectCategorias);
+            select.DeselectAll();
+            categorias.ForEach(categ =>
             {
-                webElement.Click();
-            }
-            
-            foreach (string s in categorias)
-            {
-                opcoes
-                    .Where(o => o.Text.Contains(s))
-                    .ToList()
-                    .ForEach(o =>
-                    {
-                        o.Click();
-                    });
-            }
-            
-            selectWrapper
-                .FindElement(By.TagName("li"))
-                .SendKeys(Keys.Tab);
+                select.SelectByText(categ);
+            });
+            _driver.FindElement(_inputTermo).SendKeys(termo);
+            if(emAndamento) _driver.FindElement(_inputAndamento).Click();
+            _driver.FindElement(_botaoPesquisar).Click();
 
         }
 
