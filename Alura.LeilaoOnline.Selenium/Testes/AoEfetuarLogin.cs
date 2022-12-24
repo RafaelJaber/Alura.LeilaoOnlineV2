@@ -33,13 +33,8 @@ namespace Alura.LeilaoOnline.Selenium.V2.Testes
         [Fact]
         public void DadoCrendenciasInvalidasDeveContinuarLogin()
         {
-            //arrange
-            var loginPO = new LoginPO(_driver);
-            loginPO.Visitar();
-            loginPO.PreencheFormulario("fulano@example.org", "");
-
-            //act
-            loginPO.SubmeteFormulario();
+            LoginPO loginPo = new LoginPO(_driver);
+            loginPo.EfetuarLoginComCredenciais("fulano@example.org", "1223");
 
             //assert
             Assert.Contains("Login", _driver.PageSource);

@@ -21,9 +21,7 @@ namespace Alura.LeilaoOnline.Selenium.V2.Testes
         {
             // Arrange
             LoginPO loginPo = new LoginPO(_driver);
-            loginPo.Visitar();
-            loginPo.PreencheFormulario("admin@example.org", "123");
-            loginPo.SubmeteFormulario();
+            loginPo.EfetuarLoginComCredenciais("admin@example.org", "123");
 
             NovoLeilaoPO novoLeilaoPo = new NovoLeilaoPO(_driver);
             

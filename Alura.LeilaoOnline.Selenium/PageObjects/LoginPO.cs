@@ -33,5 +33,12 @@ namespace Alura.LeilaoOnline.Selenium.V2.PageObjects
         {
             _driver.FindElement(_botaoLogin).Submit();
         }
+
+        public void EfetuarLoginComCredenciais(string login, string senha)
+        {
+            Visitar();
+            PreencheFormulario(login, senha);
+            SubmeteFormulario();
+        }
     }
 }
